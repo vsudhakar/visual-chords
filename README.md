@@ -16,3 +16,4 @@ The keyboard and scale provide the first response to input: when a key is presse
 * MIDI controller support
 •	Text response gives notes, intervals, chords, and scales
 
+alex figured out git
