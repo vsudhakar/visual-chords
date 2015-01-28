@@ -14,6 +14,4 @@ The keyboard and scale provide the first response to input: when a key is presse
 * Dynamic goals frame to provide user with direction
 * Press a button to learn about the chord last played.
 * MIDI controller support
-•	Text response gives notes, intervals, chords, and scales
-
-alex figured out git
+* Text response gives notes, intervals, chords, and scales
