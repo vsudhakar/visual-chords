@@ -3,15 +3,6 @@ from pygame.locals import *
 #import keyboard, scale, visual, chordbox, chordrec, sound, midicontrol, goals
 #from keyboard import Keyboard
 #from scale import Scale
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
->>>>>>> e750d7e27400bdf0387000b8edc22b3f5bf46551
 
 pygame.init()
 screen=pygame.display.set
