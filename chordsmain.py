@@ -19,6 +19,20 @@ scale=Scale()
 #Main Game Loop:
 FPS=60
 clock=pygame.time.Clock()
+
+
+
+#initialisations
+keyboard=Keyboard()
+scale=Scale()
+visual=Visualisation()
+chordbox=Chordbox()
+chordrec=Chordrec()
+sound=Sound()
+
+
+
+
 while True:
     keydown=[]
     keyup=[]
@@ -27,8 +41,8 @@ while True:
             keydown.append(KEYS[event.key])
         elif event.type==KEYUP:
             keyup.append(KEYS[event.key])
+    
     keyboard.update(keydown, keyup)
     scale.update(keydown, keyup)
-    screen.blit(scale.get_surf())
-    screen.blit(keyboard.get_surf())
-    
+    screen.blit(scale.surf)
+    screen.blit(keyboard.surf)
