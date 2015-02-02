@@ -6,7 +6,7 @@ from locals.py import *
 
 class visual:
     def __init__(self, size):
-        self.size = (size[0]*0.75, size[1]*0.7) 
+        self.size = (WIDTH*0.75, HEIGHT*0.7) 
         self.surf = pygame.Surface(self.size)
 
         #Rectangle visualization
@@ -18,9 +18,22 @@ class visual:
 
         #Draw rectangles onto surface object
         for i in self.rects:
-            pygame.draw.rect(self.surf, pygame.Color("red"), i)
+            pygame.draw.rect(self.surf, pygame.Color("red"), i))
+
+
+
+    def draw(notes):
+        for x in xrange(len(notes)):
+            h=(x+1)*(self.size[1]/5)
+            r=Pygame.Rect((0,h), self.size[0], h)
+            self.surf.fill(COLOR(notes[x]), r)
+            
+    def update(keydown, keyup, chordrec):
+        if chordrec==None:
+            
                               
-##    def update(keydown, keyup, chordrec):
+
+
 
 
 
