@@ -8,6 +8,8 @@ class visual:
     def __init__(self, size):
         self.size = (WIDTH*0.75, HEIGHT*0.7) 
         self.surf = pygame.Surface(self.size)
+        self.frame=0
+        self.bsurf=pygame.Surface(self.size, SRCALPHA)
 
         #Rectangle visualization
         self.rects = []
@@ -29,7 +31,31 @@ class visual:
             self.surf.fill(COLOR(notes[x]), r)
             
     def update(keydown, keyup, chordrec):
+
+        #increment animation
+        if self.frame>0:
+            chordburst(bsurf, self.frame)
+            self.frame-=1
+
+
+        
         if chordrec==None:
+            pass
+        else:
+            if self.frame==0:
+                bsurf.fill(COLOR(chordrec.data[root]))
+                self.frame=51
+            
+
+
+
+
+    def chordburst(bsurf, frame):
+        bsurf.set_alpha(frame*51)
+        self.surf.blit(bsurf)
+            
+        #30 frame full screen burst
+        
             
                               
 
