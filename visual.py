@@ -26,7 +26,7 @@ class visual:
             self.surf.fill(COLOR(notes[x]), r)
         self.currentNotes = notes
         
-    def update(keydown, keyup, chordrec):
+    def update(self, keydown, keyup, chordrec):
 
         #increment animation
         if self.frame>0:
@@ -38,7 +38,6 @@ class visual:
             for i in keydown:
                 notes.pop()
                 notes.insert(0, i)
-            print notes
             self.draw(keydown)
             self.currentNotes = notes
         else:
@@ -63,7 +62,7 @@ vis = visual(size)
 FPS = 60
 clock=pygame.time.Clock()
 n = [0, 1, 2, 3, 4]
-vis.draw(n)s
+vis.draw(n)
 screen.blit(vis.surf, (0, 0))
 
 pygame.display.flip()
@@ -78,10 +77,15 @@ while True:
                 pygame.quit()
                 sys.exit()
             if event.type==KEYDOWN:
-                print pygame.key.name(event.key)
-                keydown.append(KEYS["K_"+str(pygame.key.name(event.key))])
+                try:
+                    keydown.append(KEYS["K_"+str(pygame.key.name(event.key))])
+                except:
+                    pass
             elif event.type==KEYUP:
-                keyup.append(KEYS["K_"+str(pygame.key.name(event.key))])
+                try:
+                    keyup.append(KEYS["K_"+str(pygame.key.name(event.key))])
+                except:
+                    pass
     vis.update(keydown, keyup, None)
     vis.draw(n)
     screen.blit(vis.surf, (0, 0))
