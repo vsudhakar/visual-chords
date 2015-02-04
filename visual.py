@@ -9,6 +9,8 @@ class visual:
 ##        self.size = (WIDTH*0.75, HEIGHT*0.7)
         self.size = size
         self.surf = pygame.Surface(self.size)
+        self.frame=0
+        self.bsurf=pygame.Surface(self.size, SRCALPHA)
 
         #Rectangle visualization
         self.rects = []
@@ -23,8 +25,14 @@ class visual:
             r=pygame.Rect((0,h-self.size[1]/5), (self.size[0], self.size[1]/5))
             self.surf.fill(COLOR(notes[x]), r)
         self.currentNotes = notes
+        
+    def update(keydown, keyup, chordrec):
+
+        #increment animation
+        if self.frame>0:
+            chordburst(bsurf, self.frame)
+            self.frame-=1
             
-    def update(self, keydown, keyup, chordrec):
         if chordrec==None:
             notes = self.currentNotes
             for i in keydown:
@@ -33,9 +41,17 @@ class visual:
             print notes
             self.draw(keydown)
             self.currentNotes = notes
+        else:
+            if self.frame==0:
+                bsurf.fill(COLOR(chordrec.data[root]))
+                self.frame=51
 
-
-
+    def chordburst(bsurf, frame):
+        bsurf.set_alpha(frame*51)
+        self.surf.blit(bsurf)
+            
+        #30 frame full screen burst
+        
 
 
 ##DEBUGGING

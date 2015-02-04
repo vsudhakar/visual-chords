@@ -1,6 +1,12 @@
 import pygame
 from pygame.locals import *
 from locals.py import *
+'''
+from keyboard import Keyboard
+from scale import Scale
+from visual import Visual
+from chordbox import Chordbox
+'''
 #import keyboard, scale, visual, chordbox, chordrec, sound, midicontrol, goals
 #from keyboard import Keyboard
 #from scale import Scale
@@ -48,8 +54,8 @@ while True:
     #Run Modules
     keyboard.update(keydown, keyup)
     scale.update(keydown, keyup)
-    #goals.update(???)
     chordrec.update(keydown, keyup)
+    goals.update(keydown, keyup, chordrec.data)
     visual.update(keydown, keyup, chordrec.data)
     chordbox.update(chordrec.chordstring)
     sound.update(keydown, keyup)
@@ -62,8 +68,7 @@ while True:
     screen.blit(chordbox.surf, (WIDTH*.1875,0))
     
     
+    
 
     
     pygame.display.flip()
-
-    
