@@ -3,14 +3,15 @@
 import pygame
 from pygame.locals import *
 from locals import *
-
+import random as R
 class visual:
     def __init__(self, size):
 ##        self.size = (WIDTH*0.75, HEIGHT*0.7)
         self.size = size
         self.surf = pygame.Surface(self.size)
         self.frame=0
-        self.bsurf=pygame.Surface(self.size, SRCALPHA)
+        self.bsurf=pygame.Surface(self.size)
+        
 
         #Rectangle visualization
         self.rects = []
@@ -25,14 +26,21 @@ class visual:
             r=pygame.Rect((0,h-self.size[1]/5), (self.size[0], self.size[1]/5))
             self.surf.fill(COLOR(notes[x]), r)
         self.currentNotes = notes
+
+    def burst(self, n):
+        self.bsurf.fill(R.rangerange(n))
+        self.frame=51
         
     def update(self, keydown, keyup, chordrec):
 
         #increment animation
         if self.frame>0:
-            chordburst(bsurf, self.frame)
+            print self.bsurf.get_alpha()
+            self.chordburst()
             self.frame-=1
-            
+        else:
+            self.burst(R.randrange(12))
+        '''    
         if chordrec==None:
             notes = self.currentNotes
             for i in keydown:
@@ -44,10 +52,12 @@ class visual:
             if self.frame==0:
                 bsurf.fill(COLOR(chordrec.data[root]))
                 self.frame=51
+        '''
+        
 
-    def chordburst(bsurf, frame):
-        bsurf.set_alpha(frame*51)
-        self.surf.blit(bsurf)
+    def chordburst(self):
+        self.bsurf.set_alpha(self.frame*5)
+        self.surf.blit(self.bsurf, (0,0))
             
         #30 frame full screen burst
         
@@ -86,8 +96,9 @@ while True:
                     keyup.append(KEYS["K_"+str(pygame.key.name(event.key))])
                 except:
                     pass
-    vis.update(keydown, keyup, None)
+    
     vis.draw(n)
+    vis.update(keydown, keyup, None)
     screen.blit(vis.surf, (0, 0))
     pygame.display.flip()
 

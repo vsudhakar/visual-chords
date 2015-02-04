@@ -40,5 +40,6 @@ COLORS={
     11:(255, 0, 127)
 }
 
-def COLOR(n):
-    return COLORS[n%12]
+def COLOR(n, mod=0):
+    if mod==0:
+        return COLORS[n%12]
