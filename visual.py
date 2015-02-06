@@ -28,14 +28,13 @@ class visual:
         self.currentNotes = notes
 
     def burst(self, n):
-        self.bsurf.fill(R.rangerange(n))
+        self.bsurf.fill(COLOR(n))
         self.frame=51
         
     def update(self, keydown, keyup, chordrec):
 
         #increment animation
         if self.frame>0:
-            print self.bsurf.get_alpha()
             self.chordburst()
             self.frame-=1
         else:
@@ -58,8 +57,6 @@ class visual:
     def chordburst(self):
         self.bsurf.set_alpha(self.frame*5)
         self.surf.blit(self.bsurf, (0,0))
-            
-        #30 frame full screen burst
         
 
 
@@ -87,6 +84,7 @@ while True:
                 pygame.quit()
                 sys.exit()
             if event.type==KEYDOWN:
+                print pygame.key.name(event.key)
                 try:
                     keydown.append(KEYS["K_"+str(pygame.key.name(event.key))])
                 except:
