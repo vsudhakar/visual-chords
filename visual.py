@@ -23,9 +23,8 @@ class visual:
     def draw(self, notes):
         for x in xrange(len(notes)):
             h=(x+1)*(self.size[1]/5)
-            r=pygame.Rect((0,h-self.size[1]/5), (self.size[0], self.size[1]/5))
+            r=pygame.Rect((0,x*self.size[1]/5), (self.size[0], self.size[1]/5))
             self.surf.fill(COLOR(notes[x]), r)
-        self.currentNotes = notes
 
     def burst(self, n):
         self.bsurf.fill(COLOR(n))
@@ -33,12 +32,32 @@ class visual:
         
     def update(self, keydown, keyup, chordrec):
 
+        #notes
+        drawnotes=False
+        for x in keydown:
+            self.currentNotes.append(x)
+            drawnotes=True
+        for x in keyup:
+            self.currentNotes.remove(x)
+            drawnotes=True
+
+        print self.currentNotes
+        if drawnotes:
+            self.surf.fill(pygame.Color("white"))
+            self.draw(self.currentNotes)
+
+
+        
+
         #increment animation
         if self.frame>0:
             self.chordburst()
             self.frame-=1
         else:
-            self.burst(R.randrange(12))
+            if chordrec!=None:
+                self.burst(chordrec[0])
+        
+            
         '''    
         if chordrec==None:
             notes = self.currentNotes
@@ -68,8 +87,6 @@ vis = visual(size)
 
 FPS = 60
 clock=pygame.time.Clock()
-n = [0, 1, 2, 3, 4]
-vis.draw(n)
 screen.blit(vis.surf, (0, 0))
 
 pygame.display.flip()
@@ -84,7 +101,6 @@ while True:
                 pygame.quit()
                 sys.exit()
             if event.type==KEYDOWN:
-                print pygame.key.name(event.key)
                 try:
                     keydown.append(KEYS["K_"+str(pygame.key.name(event.key))])
                 except:
@@ -95,7 +111,6 @@ while True:
                 except:
                     pass
     
-    vis.draw(n)
     vis.update(keydown, keyup, None)
     screen.blit(vis.surf, (0, 0))
     pygame.display.flip()
