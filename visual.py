@@ -58,7 +58,7 @@ class visual:
                 self.burst(chordrec[0])
         
             
-        '''    
+          ''' 
         if chordrec==None:
             notes = self.currentNotes
             for i in keydown:
