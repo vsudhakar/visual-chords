@@ -1,7 +1,6 @@
 from locals import *
 import pygame
 from pygame.locals import *
-import pygame.gfxdraw
 
 class Keyboard:
     def __init__(self):
