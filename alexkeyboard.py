@@ -23,7 +23,7 @@ class Keyboard:
             [( 7*W/12, 0),( 7*W/12, H),  ( 8*W/12, H),  ( 8*W/12, H/2),(47*W/72,H/2),(47*W/72,0)                            ],#12:C
             [(47*W/72, 0),(47*W/72, H/2),(50*W/72, H/2),(50*W/72, 0)                                                        ],#13:C#
             [(50*W/72, 0),(50*W/72, H/2),( 8*W/12, H/2),( 8*W/12, H),  ( 9*W/12,H),  ( 9*W/12,H/2),(53*W/72,H/2),(53*W/72,0)],#14:D
-            [(47*W/72, 0),(47*W/72, H/2),(50*W/72, H/2),(50*W/72, 0)                                                        ],#15:D#
+            [(53*W/72, 0),(53*W/72, H/2),(56*W/72, H/2),(56*W/72, 0)                                                        ],#15:D#
             [(56*W/72, 0),(56*W/72, H/2),( 9*W/12, H/2),( 9*W/12, H),  (10*W/12,H),  (10*W/12,0)                            ],#16:E
             [(10*W/12, 0),(10*W/12, H),  (11*W/12, H),  (11*W/12, H/2),(65*W/72,H/2),(65*W/72,0)                            ],#17:F
             [(65*W/72, 0),(65*W/72, H/2),(68*W/72, H/2),(68*W/72, 0)                                                        ],#18:F#
@@ -33,16 +33,16 @@ class Keyboard:
         self.surf=pygame.Surface((W,H))
         self.surf.fill((255,255,255))
         for vert in self.keyverticies:
-            pygame.gfxdraw.polygon(self.surf, vert, (0,0,0))
+            pygame.draw.polygon(self.surf, (0,0,0), vert, 2)
 
 
     def update(self, keydn, keyup):
         for x in keydn:
-            pygame.gfxdraw.filled_polygon(self.surf, self.keyverticies[x], COLOR(x))
-            pygame.gfxdraw.polygon(self.surf, self.keyverticies[x], (0,0,0))
+            pygame.draw.polygon(self.surf, COLOR(x), self.keyverticies[x])
+            pygame.draw.polygon(self.surf, (0,0,0), self.keyverticies[x], 2)
         for x in keyup:
-            pygame.gfxdraw.filled_polygon(self.surf, self.keyverticies[x], (255,255,255))
-            pygame.gfxdraw.polygon(self.surf, self.keyverticies[x], (0,0,0))
+            pygame.draw.polygon(self.surf, (255,255,255), self.keyverticies[x])
+            pygame.draw.polygon(self.surf, (0,0,0), self.keyverticies[x], 2)
 
 
 
