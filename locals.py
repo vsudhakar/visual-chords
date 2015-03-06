@@ -1,5 +1,6 @@
 #constants
-SCREEN_SIZE=(1280,1024)
+from ctypes import windll as wd
+SCREEN_SIZE=(wd.user32.GetSystemMetrics(0),wd.user32.GetSystemMetrics(1))
 WIDTH=SCREEN_SIZE[0]
 HEIGHT=SCREEN_SIZE[1]
 KEYS={
