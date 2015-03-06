@@ -3,71 +3,59 @@
 import pygame
 from pygame.locals import *
 from locals import *
-import random as R
 class visual:
     def __init__(self):
         self.size = (WIDTH*0.75, HEIGHT*0.7)
         self.surf = pygame.Surface(self.size)
-        self.frame=0
-        self.bsurf=pygame.Surface(self.size)
-
+        self.surf.set_alpha(255)
+        self.burstframes=0
+        self.burstsurf=pygame.Surface(self.size)
+        self.burstsurf.set_alpha(0)
         self.currentNotes = []
 
     def draw(self, notes):
+        self.surf.fill((0,0,0))
         for x in xrange(len(notes)):
             r=pygame.Rect((0,(4-x)*self.size[1]/5), (self.size[0], self.size[1]/5))
             self.surf.fill(COLOR(notes[x]), r)
                       
     def burst(self, n):
-        self.bsurf.fill(COLOR(n))
-        self.frame=51
+        self.burstsurf.fill(COLOR(n))
+        self.burstsurf.set_alpha(255)
+        self.burstframes=51
+
+    def onframe(self):
+        print self.burstframes
+        if self.burstframes>0:
+            self.burstframes-=1
+            self.burstsurf.set_alpha(self.burstframes*5)
+        self.surf.blit(self.burstsurf, (0,0))
         
     def update(self, keydown, keyup, chordrec):
 
         #notes
-        drawnotes=False
+        
+        key=False
         for x in keydown:
             self.currentNotes.append(x)
-            drawnotes=True
+            key=True
+        
         for x in keyup:
             try:
                 self.currentNotes.remove(x)
             except(ValueError):
                 print "missed keydown?"
-            drawnotes=True
+            key=True
         
-        if drawnotes:
-            self.surf.fill(pygame.Color("black"))
-            self.draw(self.currentNotes)
-
-
-        
-
-        #increment animation
-        if self.frame>0:
-            self.chordburst()
-            self.frame-=1
-        else:
+        if key:
             if chordrec!=None:
-                self.burst(chordrec[0])
+                print "trip"
+                self.burst(chordrec)
+
+        self.draw(self.currentNotes)
+        self.onframe()
         
-            
-        ''' 
-        if chordrec==None:
-            notes = self.currentNotes
-            for i in keydown:
-                notes.pop()
-                notes.insert(0, i)
-            self.draw(keydown)
-            self.currentNotes = notes
-        else:
-            if self.frame==0:
-                bsurf.fill(COLOR(chordrec.data[root]))
-                self.frame=51
-        '''
         
 
-    def chordburst(self):
-        self.bsurf.set_alpha(self.frame*5)
-        self.surf.blit(self.bsurf, (0,0))
+
     
