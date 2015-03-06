@@ -12,7 +12,7 @@ from alexkeyboard import Keyboard
 #from scale import Scale
 from visual import visual
 from chordbox import Chordbox
-
+from sound import Sound
 
 
 
@@ -37,7 +37,7 @@ keyboard=Keyboard()
 visual=visual()
 chordbox=Chordbox()
 ##chordrec=Chordrec()
-##sound=Sound()
+sound=Sound()
 
 
 screen.fill((255,255,255))
@@ -46,7 +46,7 @@ pygame.draw.rect(screen, (0,0,0), pygame.Rect(WIDTH*.75,HEIGHT*.75, WIDTH*.25, H
 pygame.draw.rect(screen, (0,0,0), pygame.Rect(WIDTH*.75,0, WIDTH*.25, HEIGHT*.75), 2)
 pygame.draw.rect(screen, (0,0,0), pygame.Rect(0,HEIGHT*.1, WIDTH*.75, HEIGHT*.7), 2)
 pygame.draw.rect(screen, (0,0,0), pygame.Rect(WIDTH*.125,0, WIDTH*.5, HEIGHT*.1), 2)
-
+import random as R
 while True:
     keydown=[]
     keyup=[]
@@ -61,21 +61,25 @@ while True:
                 keyup.append(KEYS[event.key])
             except:
                 pass
-        keyboard.update(keydown, keyup)
+    keyboard.update(keydown, keyup)
             ##    scale.update(keydown, keyup)
             ##    chordrec.update(keydown, keyup)
             ##    goals.update(keydown, keyup, chordrec.data)
-        visual.update(keydown, keyup, None)        # For now 'None' is passed, it should be chordrec.data
+    if len(keydown)>0:
+        print keydown[0]
+        visual.update(keydown, keyup, keydown[0])        # For now 'None' is passed, it should be chordrec.data
+        print "burst?"
+    else:
+        visual.update(keydown, keyup, None)
 
-        chordbox.update("thing", "lots of more text to render !@#$^%&*()")
-            ##    sound.update(keydown, keyup)
+    sound.update(keydown, keyup)
 
                 #Draw Surfaces
-        screen.blit(keyboard.surf, (0,HEIGHT*.8))
+    screen.blit(keyboard.surf, (0,HEIGHT*.8))
             ##    screen.blit(scale.surf, (WIDTH*.75,HEIGHT*.25))
             ##    screen.blit(goals.surf, (WIDTH*.75,0))
-        screen.blit(visual.surf, (0, HEIGHT*.10))
-        screen.blit(chordbox.surf, (WIDTH*.125,0))
+    screen.blit(visual.surf, (0, HEIGHT*.10))
+    screen.blit(chordbox.surf, (WIDTH*.125,0))
             
 
 
