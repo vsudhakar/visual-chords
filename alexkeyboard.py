@@ -32,6 +32,8 @@ class Keyboard:
         self.surf=pygame.Surface((W,H))
         self.surf.fill((255,255,255))
         for vert in self.keyverticies:
+            if len(vert)==4:
+                pygame.draw.polygon(self.surf, (64,64,64), vert)
             pygame.draw.polygon(self.surf, (0,0,0), vert, 2)
 
 
@@ -40,13 +42,16 @@ class Keyboard:
             pygame.draw.polygon(self.surf, COLOR(x), self.keyverticies[x])
             pygame.draw.polygon(self.surf, (0,0,0), self.keyverticies[x], 2)
         for x in keyup:
-            pygame.draw.polygon(self.surf, (255,255,255), self.keyverticies[x])
+            if len(self.keyverticies[x])==4:
+                pygame.draw.polygon(self.surf, (64,64,64), self.keyverticies[x])
+            else:
+                pygame.draw.polygon(self.surf, (255,255,255), self.keyverticies[x])
             pygame.draw.polygon(self.surf, (0,0,0), self.keyverticies[x], 2)
 
 
 
 
-
+'''
 ##DEBUGGING
 pygame.init()
 size = (800, 600)
@@ -84,3 +89,4 @@ while True:
     k.update(keydown, keyup)
     screen.blit(k.surf, (0, 0))
     pygame.display.flip()
+'''
