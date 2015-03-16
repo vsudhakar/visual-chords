@@ -16,4 +16,3 @@ class Chordbox:
             rtext=self.font.render(self.text, True, (255,0,0), (0,0,0))
             self.surf.fill((0,0,0))
             self.surf.blit(rtext, ((self.W-rtext.get_width())/2, (self.H-rtext.get_height())/2))
-            

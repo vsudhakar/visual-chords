@@ -5,7 +5,7 @@ class Sound:
     def __init__(self):
         pygame.midi.init()
         self.player=pygame.midi.Output(0)
-        self.player.set_instrument(48,1)
+        self.player.set_instrument(0,1)
         
     def update(self, keydown, keyup):
         for x in keydown:
