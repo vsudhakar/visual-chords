@@ -73,6 +73,7 @@ while True:
         visual.update(keydown, keyup, None)
 
     sound.update(keydown, keyup)
+    chordbox.update(None, str(R.randrange(10000000)))
 
                 #Draw Surfaces
     screen.blit(keyboard.surf, (0,HEIGHT*.8))
