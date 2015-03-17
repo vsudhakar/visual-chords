@@ -12,8 +12,7 @@ class Goals(object):
             self.completed=False
             font=pygame.font.SysFont('Arial', int(self.H*.16))
             textrect=pygame.Rect(int(self.W*.15), 0, int(self.W*.8), int(self.H*.75))
-            self.drawText(self.surf, string, (255,255,255), pygame.Rect(int(self.W*.15)+2, 0, int(self.W*.8), int(self.H*.75))
-            , font, bkg=(0,0,0))
+            self.drawText(self.surf, string, (255,255,255), pygame.Rect(int(self.W*.15)+2, 0, int(self.W*.8), int(self.H*.75)), font, bkg=(0,0,0))
             pygame.draw.rect(self.surf, (255,255,255), textrect, 1)
             self.checkbox(False)
             self.position=pos
@@ -58,8 +57,8 @@ class Goals(object):
             checkbox(True)
 
         def draw(self, dest):
-            dest.fill((0,0,0), (0, self.H*.2*self.position, self.W, self.H))
-            dest.blit(self.surf, (0, self.H*.2*self.position))
+            dest.fill((0,0,0), (0, self.H*self.position, self.W, self.H))
+            dest.blit(self.surf, (0, self.H*self.position))
 
 
 
@@ -74,7 +73,7 @@ class Goals(object):
         pygame.font.init()
         self.W=int(WIDTH*.25)
         print WIDTH
-        self.H=int(HEIGHT*.75)
+        self.H=int(HEIGHT*.8)
         self.surf=pygame.Surface((self.W, self.H))
         self.goalstrings=[
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut gravida nisi. Pellentesque eget elit nulla. Ut porttitor nulla tellus, vel sodales ante posuere rutrum. Integer libero risus, tincidunt eu eleifend sed, pharetra at odio. Nunc pulvinar purus nisi, sit amet aliquet dolor pharetra non.",
@@ -86,7 +85,7 @@ class Goals(object):
         
         self.goalsurf=pygame.Surface((self.W, self.H*.2*len(self.goalstrings)))
         self.scroll=0
-        self.MAXSCROLL=self.goalsurf.get_height()-self.H*.85
+        self.MAXSCROLL=self.goalsurf.get_height()-self.H*.75
 
         titlefont=pygame.font.SysFont('Arial', int(self.H/20))
         title=titlefont.render("G O A L S", True, (255,0,0), (0,0,0))
@@ -96,30 +95,30 @@ class Goals(object):
         self.goalsurfs=[]
         for x in xrange(len(self.goalstrings)):
             s=self.GoalSurf(self.goalstrings[x], (self.W, int(self.H*.2)), x)
+            print s.surf
             s.draw(self.goalsurf)
             self.goalsurfs.append(s)
         
-        
-        
-        for s in xrange(len(self.goalsurfs)):
-           self.surf.blit(self.goalsurfs[s].surf, (0, int(s*self.H*.2)+self.H/20))
 
-        self.surf.blit(self.goalsurf, (0, self.H*.2), (0,0,self.goalsurf.get_width(), self.H*.85))
+        self.surf.blit(self.goalsurf, (0, self.H*.1), (0,0,self.goalsurf.get_width(), self.H*.85))
+        self.drawarrows()
 
 
     def drawarrows(self):
-        pygame.draw.polygon(self.surf, (255,255,255), [(self.W*.35, self.H*.1), (self.W*.5, self.H*.05), (self.W*.7, self.H*.1)])
-        pygame.draw.polygon(self.surf, (255,255,255), [(self.W*.35, self.H*.95), (self.W*.5, self.H*.9), (self.W*.7, self.H*.95)])
         if self.scroll==0:
-            pygame.draw.polygon(self.surf, (127,127,127), [(self.W*.35, self.H*.1), (self.W*.5, self.H*.05), (self.W*.7, self.H*.1)])
-        elif self.scroll==self.MAXSCROLL:
-            pygame.draw.polygon(self.surf, (127,127,127), [(self.W*.35, self.H*.95), (self.W*.5, self.H*.9), (self.W*.7, self.H*.95)])
+            pygame.draw.polygon(self.surf, (127,127,127), [(self.W*.4, self.H*.08), (self.W*.5, self.H*.05), (self.W*.6, self.H*.08)])
+        else:
+            pygame.draw.polygon(self.surf, (255,255,255), [(self.W*.4, self.H*.08), (self.W*.5, self.H*.05), (self.W*.6, self.H*.08)])
+        if self.scroll==self.MAXSCROLL:
+            pygame.draw.polygon(self.surf, (127,127,127), [(self.W*.4, self.H*.97), (self.W*.5, self.H), (self.W*.6, self.H*.97)])
+        else:
+            pygame.draw.polygon(self.surf, (255,255,255), [(self.W*.4, self.H*.97), (self.W*.5, self.H), (self.W*.6, self.H*.97)])
         
 
 
     def update(self, chorddata, s):
         if s!=0:
-            self.surf.blit(self.goalsurf, (0, self.H*.2), (0,self.scroll,self.goalsurf.get_width(), self.H*.85))
+            self.surf.blit(self.goalsurf, (0, self.H*.1), (0,self.scroll,self.goalsurf.get_width(), self.H*.85))
             self.drawarrows()
             self.scroll+=s*5
             self.clamp()
@@ -129,24 +128,25 @@ class Goals(object):
 
     def clamp(self):
         if self.scroll<0:
-            print "c1"
             self.scroll=0
         if self.scroll>self.MAXSCROLL:
-            print "c2"
             self.scroll=self.MAXSCROLL
     
 
 
 
 
-    
-
+'''
 screen=pygame.display.set_mode(SCREEN_SIZE)
 
 g=Goals()
 while True:
-    screen.blit(g.surf, (0,0))
+    for event in pygame.event.get():
+        if event.type==KEYDOWN:
+            g.update(None, 1)
+            print event.key
     g.update(None, 0)
+    screen.blit(g.surf, (0,0))
     #screen.blit(g.goalsurf("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus condimentum sapien et libero condimentum, eget lacinia odio condimentum. Nulla consectetur ex lectus, vitae aliquet dolor volutpat malesuada. Nulla vulputate vel elit at efficitur. Etiam eu justo ac elit suscipit semper a ut sem. Maecenas ullamcorper ultricies porttitor. Maecenas varius, tortor."), (0,0))
-    
     pygame.display.flip()
+'''
