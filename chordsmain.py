@@ -81,8 +81,8 @@ while True:
             ##    screen.blit(goals.surf, (WIDTH*.75,0))
     screen.blit(visual.surf, (0, HEIGHT*.10))
     screen.blit(chordbox.surf, (WIDTH*.125,0))
-            
 
 
-    
+
+
     pygame.display.flip()
