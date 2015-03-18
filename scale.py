@@ -4,8 +4,8 @@ from locals import *
 
 class Scale(object):
     def __init__(self):
-        self.H=HEIGHT/4
-        self.W=WIDTH/4
+        self.H=int(HEIGHT*.24)
+        self.W=int(WIDTH*.24)
         self.surf=pygame.Surface((self.W, self.H))
         self.csize=self.H/14-1
 
@@ -25,6 +25,7 @@ class Scale(object):
             17:self.H/7,
             19:self.H/14
         }
+        
         self.cleff=pygame.image.load("treble.png").convert_alpha()
         self.cleff=pygame.transform.scale(self.cleff, (int(self.H*.3796), self.H))
         self.currentNotes=[]
@@ -74,11 +75,20 @@ class Scale(object):
         if note in self.sharp:
             sharp=True
             n2-=1
+            space=self.csize*4
         if n2 in self.space:
-            space=self.W/14
+            space+=self.W/14
+        h=self.nheight[n2]
+        w=self.W/2+space
+        if sharp:
+            pygame.draw.line(self.surf, COLOR(note), (w-2*self.csize, h+3*self.csize), (w-2*self.csize, h-2*self.csize), 3)
+            pygame.draw.line(self.surf, COLOR(note), (w-self.csize, h+3*self.csize), (w-self.csize, h-2*self.csize), 3)
+            pygame.draw.line(self.surf, COLOR(note), (w-3*self.csize, h+2*self.csize), (w, h+self.csize), 8)
+            pygame.draw.line(self.surf, COLOR(note), (w-3*self.csize, h-.5*self.csize), (w, h-1.5*self.csize), 8)
         if n2==0:
-            pygame.draw.line(self.surf, (0,0,0), (self.W/2-self.csize*3/2, self.H*6/7), (self.W/2+self.csize*3/2, self.H*6/7))
-        pygame.draw.circle(self.surf, COLOR(note), (self.W/2+space, self.nheight[n2]), self.csize)
+            pygame.draw.line(self.surf, (0,0,0), (w-self.csize*3, self.H*6/7), (w+self.csize*2, self.H*6/7))
+        pygame.draw.ellipse(self.surf, COLOR(note), (w-2*self.csize, h-self.csize, self.csize*3, self.csize*2))
+        
 '''        
 pygame.init()
 

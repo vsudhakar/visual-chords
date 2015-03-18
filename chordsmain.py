@@ -80,7 +80,7 @@ while True:
 
                 #Draw Surfaces
     screen.blit(keyboard.surf, (0,HEIGHT*.8))
-    screen.blit(scale.surf, (WIDTH*.75,HEIGHT*.75))
+    screen.blit(scale.surf, (WIDTH*.76,HEIGHT*.76))
     screen.blit(goals.surf, (WIDTH*.75,0))
     screen.blit(visual.surf, (0, HEIGHT*.10))
     screen.blit(chordbox.surf, (WIDTH*.125,0))
