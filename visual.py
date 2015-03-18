@@ -50,7 +50,7 @@ class visual:
         if key:
             if chordrec!=None:
                 print "trip"
-                self.burst(chordrec)
+                self.burst(chordrec[0])
 
         self.draw(self.currentNotes)
         self.onframe()

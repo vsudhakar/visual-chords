@@ -89,7 +89,7 @@ class Goals(object):
         pygame.font.init()
         self.W=int(WIDTH*.25)
         print WIDTH
-        self.H=int(HEIGHT*.8)
+        self.H=int(HEIGHT*.75)
         self.surf=pygame.Surface((self.W, self.H))
         # self.goalstrings=[
         #     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut gravida nisi. Pellentesque eget elit nulla. Ut porttitor nulla tellus, vel sodales ante posuere rutrum. Integer libero risus, tincidunt eu eleifend sed, pharetra at odio. Nunc pulvinar purus nisi, sit amet aliquet dolor pharetra non.",
