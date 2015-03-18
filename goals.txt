@@ -1,60 +1,40 @@
 Play any note.
-any note
-
+key
 Play any note with an accidental.
-any note with accidental
-
+key with accidental
 Play a major third.
 major third
-
 Play a minor third.
 minor third
-
 Play a perfect fifth.
 perfect fifth
-
 Play an octave.
 octave
-
 Play any major triad.
 major triad
-
 Play any minor triad.
 minor triad
-
 Play the following triad: F# minor
 F# minor triad
-
 Play a major seventh.
 major seventh
-
 Play a minor seventh.
 minor seventh
-
 Play any major seventh chord.
 major seventh chord
-
 Play any minor seventh chord.
 minor seventh chord
-
 Play any half-diminished seventh chord.
 half-diminished seventh
-
 Play the following seventh chord: B major-minor
 B major-minor seventh
-
 Play any major chord in first inversion.
 major first inversion
-
 Play any major chord in second inversion.
 second inversion
-
 Play the following chord: D flat minor first inversion.
 D flat minor first inversion
-
 Play any major-minor seventh chord in first inversion.
 major-minor seventh first inversion
-
 Play any full-diminished seventh chord in second inversion.
 full-diminished seventh second inversion
-

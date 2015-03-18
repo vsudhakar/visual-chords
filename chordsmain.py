@@ -52,13 +52,13 @@ while True:
     keydown=[]
     keyup=[]
     for event in pygame.event.get():
-        
+
         if event.type==KEYDOWN:
             if event.key==273:
                 scroll=-1
             elif event.key==274:
                 scroll=1
-                
+
             try:
                 keydown.append(KEYS[event.key])
             except:
@@ -66,7 +66,7 @@ while True:
         elif event.type==KEYUP:
             if event.key==273 or event.key==274:
                 scroll=0
-                
+
             try:
                 keyup.append(KEYS[event.key])
             except:
@@ -74,8 +74,10 @@ while True:
     keyboard.update(keydown, keyup)
             ##    scale.update(keydown, keyup)
             ##    chordrec.update(keydown, keyup)
-    goals.update(None, scroll)
-    
+    goals.update(None, None, scroll)
+            # None (1) - chordrec.data
+            # None (2) - chordrec.chordstring
+
     if len(keydown)>0:
         print keydown[0]
         visual.update(keydown, keyup, keydown[0])        # For now 'None' is passed, it should be chordrec.data
@@ -92,7 +94,7 @@ while True:
     screen.blit(goals.surf, (WIDTH*.75,0))
     screen.blit(visual.surf, (0, HEIGHT*.10))
     screen.blit(chordbox.surf, (WIDTH*.125,0))
-            
+
 
 
     clock.tick()
