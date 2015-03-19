@@ -142,16 +142,15 @@ class Goals(object):
 
     def update(self, chorddata, chordstring, s):
         if s!=0:
-            self.surf.blit(self.goalsurf, (0, self.H*.1), (0,self.scroll,self.goalsurf.get_width(), self.H*.85))
             self.drawarrows()
             self.scroll+=s*5
             self.clamp()
+            print self.scroll
 
         for goal in self.goalsurfs:
             goal.update(chorddata, chordstring)
             goal.draw(self.goalsurf)
-
-        self.surf.blit(self.goalsurf, (0, self.H*.1), (0,0,self.goalsurf.get_width(), self.H*.85))
+        self.surf.blit(self.goalsurf, (0, self.H*.1), (0,self.scroll,self.goalsurf.get_width(), self.H*.85))
 
 
 
