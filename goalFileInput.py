@@ -1,6 +1,6 @@
 # Get Input From File
 
-f = open('goalInput.txt')
+f = open('goals.txt')
 
 content = f.read().splitlines()
 
@@ -12,11 +12,10 @@ goals = []
 index = 0
 
 while index + 1 < len(content):
-    str = content[index]
-    tup = content[index+1]
-    goals.append((eval(str), eval(tup)))
+    goalText = content[index]
+    goalQualifier = content[index+1]
+    goals.append((str(goalText), str(goalQualifier).lower()))
     index += 1
 
 
-for goal in goals:
-    print goal
+print goals
