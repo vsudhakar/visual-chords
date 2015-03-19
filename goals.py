@@ -16,23 +16,28 @@ class Goals(object):
             pygame.draw.rect(self.surf, (255,255,255), textrect, 1)
             self.checkbox(False)
             self.position=pos
-            self.qualifier = qualifier
+            self.qualifier = tuple(qualifier)
 
         #Update with chordrec and trip the completed if necessary
-        def update(data, chordstr):
-            #data is a chordrec.data object
-            #str is chordrec.chordstring object
-            try:
-                chordstr.index('with')  #Check for conditionals
-                goalFirst = self.qualifier[:h.index('with')-1]
-                goalSecond = self.qualifier[h.index('with')+4+1:]
-            except:
-                goalFirst = self.qualifier
-                goalSecond = None
+        def update(self, data, chordstr):
+            if data != None:
+                tripped = False
+                valMatch = 0
+                valCount = 0
+                for i in range(len(self.qualifier)):
+                    if self.qualifier[i] != None:
+                        valCount += 1
+                        if self.qualifier[i] == data[i]:
+                            valMatch += 1
 
-            if goalFirst in chordstring:
-                if goalSecond == None or goalSecond in chordstring:
-                    self.completed = True
+                if valCount == valMatch and valCount + valMatch != 0:
+                    tripped = True
+
+                if tripped:
+                    self.complete()
+                    print "TRIPPED"
+                    print self.qualifier
+                    print data
 
         ###drawText function credit to pygame.org--------
         def drawText(self, surface, text, color, rect, font, aa=False, bkg=None):
@@ -71,7 +76,7 @@ class Goals(object):
 
         def complete(self):
             self.completed=True
-            checkbox(True)
+            self.checkbox(True)
 
         def draw(self, dest):
             dest.fill((0,0,0), (0, self.H*self.position, self.W, self.H))
@@ -100,7 +105,7 @@ class Goals(object):
         #     "Etiam ut lacinia erat, id viverra felis."
         # ]
 
-        self.goalstrings = [('Play any note.', 'key'), ('key', 'play any note with an accidental.'), ('Play any note with an accidental.', 'key with accidental'), ('key with accidental', 'play a major third.'), ('Play a major third.', 'major third'), ('major third', 'play a minor third.'), ('Play a minor third.', 'minor third'), ('minor third', 'play a perfect fifth.'), ('Play a perfect fifth.', 'perfect fifth'), ('perfect fifth', 'play an octave.'), ('Play an octave.', 'octave'), ('octave', 'play any major triad.'), ('Play any major triad.', 'major triad'), ('major triad', 'play any minor triad.'), ('Play any minor triad.', 'minor triad'), ('minor triad', 'play the following triad: f# minor'), ('Play the following triad: F# minor', 'f# minor triad'), ('F# minor triad', 'play a major seventh.'), ('Play a major seventh.', 'major seventh'), ('major seventh', 'play a minor seventh.'), ('Play a minor seventh.', 'minor seventh'), ('minor seventh', 'play any major seventh chord.'), ('Play any major seventh chord.', 'major seventh chord'), ('major seventh chord', 'play any minor seventh chord.'), ('Play any minor seventh chord.', 'minor seventh chord'), ('minor seventh chord', 'play any half-diminished seventh chord.'), ('Play any half-diminished seventh chord.', 'half-diminished seventh'), ('half-diminished seventh', 'play the following seventh chord: b major-minor'), ('Play the following seventh chord: B major-minor', 'b major-minor seventh'), ('B major-minor seventh', 'play any major chord in first inversion.'), ('Play any major chord in first inversion.', 'major first inversion'), ('major first inversion', 'play any major chord in second inversion.'), ('Play any major chord in second inversion.', 'second inversion'), ('second inversion', 'play the following chord: d flat minor first inversion.'), ('Play the following chord: D flat minor first inversion.', 'd flat minor first inversion'), ('D flat minor first inversion', 'play any major-minor seventh chord in first inversion.'), ('Play any major-minor seventh chord in first inversion.', 'major-minor seventh first inversion'), ('major-minor seventh first inversion', 'play any full-diminished seventh chord in second inversion.'), ('Play any full-diminished seventh chord in second inversion.', 'full-diminished seventh second inversion')]
+        self.goalstrings = [('Play any major triad.', (None, 0, 0, None)), ('Play any minor triad.', (None, 1, 0, None)), ('Play the following triad: F# minor diminished', (6, 2, 0, None)), ('Play a major seventh.', (None, None, None, None)), ('Play a minor seventh.', (None, None, None, None)), ('Play any major seventh chord.', (None, None, None, None)), ('Play any minor seventh chord.', (None, None, None, None)), ('Play any half-diminished seventh chord.', (None, None, None, None)), ('Play the following seventh chord: B major-minor', (None, None, None, None)), ('Play any major chord in first inversion.', (None, None, None, None)), ('Play any major chord in second inversion.', (None, None, None, None)), ('Play the following chord: D flat minor first inversion.', (None, None, None, None)), ('Play any major-minor seventh chord in first inversion.', (None, None, None, None)), ('Play any full-diminished seventh chord in second inversion.', (None, None, None, None))]
 
         self.goalsurf=pygame.Surface((self.W, self.H*.2*len(self.goalstrings)))
         self.scroll=0
@@ -142,8 +147,11 @@ class Goals(object):
             self.scroll+=s*5
             self.clamp()
 
-        #for goal in goalsurfs:
-            #goal.update(chorddata, chordstring)
+        for goal in self.goalsurfs:
+            goal.update(chorddata, chordstring)
+            goal.draw(self.goalsurf)
+
+        self.surf.blit(self.goalsurf, (0, self.H*.1), (0,0,self.goalsurf.get_width(), self.H*.85))
 
 
 

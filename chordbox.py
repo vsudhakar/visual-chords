@@ -12,7 +12,8 @@ class Chordbox:
         self.text=""
     def update(self, cdata, cstring):
         if cstring!=self.text:
-            self.text=cstring
+            # self.text=cstring
+            self.text = str(cdata)
             rtext=self.font.render(self.text, True, (255,0,0), (0,0,0))
             self.surf.fill((0,0,0))
             self.surf.blit(rtext, ((self.W-rtext.get_width())/2, (self.H-rtext.get_height())/2))
