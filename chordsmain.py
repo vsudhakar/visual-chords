@@ -14,7 +14,8 @@ from visual import visual
 from chordbox import Chordbox
 from sound import Sound
 from goals import Goals
-from ChordRec2 import ChordRec
+from ChordRec import ChordRec
+from chordparse import parsechord
 
 
 
@@ -78,8 +79,7 @@ while True:
     chordrec.update(keydown, keyup)
     visual.update(keydown, keyup, chordrec.chorddata)
     sound.update(keydown, keyup)
-    chordbox.update(chordrec.chorddata, chordrec.chordstring)
-    print chordrec.chorddata
+    chordbox.update(chordrec.chorddata, parsechord(chordrec.chorddata))
 
                 #Draw Surfaces
     screen.blit(keyboard.surf, (0,HEIGHT*.8))

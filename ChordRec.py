@@ -22,6 +22,7 @@ class ChordRec(object):
                 self.chorddata=None
                 self.chordstring=""
             else:
+                self.currentNotes.sort()
                 self.chorddata=self.makedata(self.currentNotes, [])
                 self.chordstring=self.makestring(self.currentNotes, [])
 
@@ -34,6 +35,10 @@ class ChordRec(object):
         #Chord intervals
         library={(4, 3): 0, (3, 4): 1, (3, 3): 2, (4, 4): 3, (4, 3, 4): 4, (4, 3, 3): 5, (3, 4, 4): 6, (3, 4, 3): 7, (3, 3, 4): 8, (3, 3, 3): 9, (4, 4, 4): 10}
         #put all the chords in the same octave
+        if len(keysDown)==0:
+            return None
+        if len(keysDown)==1:
+            return (keysDown[0],)
         for x in range(len(keysDown)):
             chord.append(keysDown[x])
         for x in range(len(chord)-1):
@@ -48,6 +53,10 @@ class ChordRec(object):
                 chord[x]=chord[x]-12
         if root>12:
             root-=12
+        if root<0:
+            print "OH GOSH!!!!"
+            print currentNodes
+            print keysDown
         for x in range(len(chord)-1):
             if chord[x+1]-chord[x]!=3 and chord[x+1]-chord[x]!=4:
                 chord[x]+=12
@@ -63,12 +72,13 @@ class ChordRec(object):
                         temp=keysDown[y+1]
                         keysDown[y+1]=keysDown[y]
                         keysDown[y]=temp
+            if chord[x+1]-chord[x]>12:
+                chord[x+1]=chord[x+1]-12
             intervals.append(chord[x+1]-chord[x])
         tone=""
         cType=0
         if len(intervals)==1:
-            tone=None
-            output=None
+            return (chord[0],intervals[0])
         if len(intervals)==2:
             chord_makeup=(intervals[0],intervals[1])
             try:
@@ -100,6 +110,8 @@ class ChordRec(object):
         return output
     def makestring(self,currentNodes,keysUp):
         keysDown=copy.deepcopy(currentNodes)
+        if len(keysDown)==0:
+            return None
         outp=""
         intervals=[]
         note=["""order of notes in relation to keysDown"""]
@@ -107,39 +119,38 @@ class ChordRec(object):
         #Chord intervals
         library={(4, 3): 'major', (3, 4): 'minor', (3, 3): 'diminished', (4, 4): 'augmented', (4, 3, 4): 'major 7th', (4, 3, 3): 'major-minor 7th', (3, 4, 4): 'minor-major 7th', (3, 4, 3): 'minor 7th', (3, 3, 4): 'half-diminished 7th', (3, 3, 3): 'full diminished 7th', (4, 4, 4): 'augmented 7th'}
         #put all the chords in the same octave
-        root=keysDown[0]
         for x in range(len(keysDown)):
-            if keysDown[x]>12:
-                chord.append(keysDown[x]-12)
-            else:
-                chord.append(keysDown[x])
-        if root>12:
-            root-=12
-        #sort first time
+            chord.append(keysDown[x])
         for x in range(len(chord)-1):
             for y in range(len(chord)-1):
                 if chord[y]>chord[y+1]:
                     temp=chord[y+1]
                     chord[y+1]=chord[y]
                     chord[y]=temp
+        root=keysDown[0]
+        for x in range(len(chord)):
+            if chord[x]>12:
+                chord[x]=chord[x]-12
+        if root>12:
+            root-=12
         for x in range(len(chord)-1):
             if chord[x+1]-chord[x]!=3 and chord[x+1]-chord[x]!=4:
                 chord[x]+=12
                 keysDown[x]+=12
                 root+=12
                 #sort after 
-                for z in range(len(chord)-1):
-                    for y in range(len(chord)-1):
-                        if chord[y]>chord[y+1]:
-                            temp=chord[y+1]
-                            chord[y+1]=chord[y]
-                            chord[y]=temp
-                            temp=keysDown[y+1]
-                            keysDown[y+1]=keysDown[y]
-                            keysDown[y]=temp
+            for z in range(len(chord)-1):
+                for y in range(len(chord)-1):
+                    if chord[y]>chord[y+1]:
+                        temp=chord[y+1]
+                        chord[y+1]=chord[y]
+                        chord[y]=temp
+                        temp=keysDown[y+1]
+                        keysDown[y+1]=keysDown[y]
+                        keysDown[y]=temp
             intervals.append(chord[x+1]-chord[x])
         if len(intervals)==1:
-            outp=""
+            return ""
         if len(intervals)==2:
             chord_makeup=(intervals[0],intervals[1])
             try:
@@ -151,7 +162,7 @@ class ChordRec(object):
             try:
                 outp=library[chord_makeup]
             except:
-                outp=""
+                return ""
         #Inversion
         if chord[0]!=root and len(chord)>2:
             if chord[1]==root:

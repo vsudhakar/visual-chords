@@ -49,8 +49,9 @@ class visual:
         
         if key:
             if chordrec!=None:
-                print "trip"
-                self.burst(chordrec[0])
+                if len(chordrec)==4:
+                    print chordrec
+                    self.burst(chordrec[0])
 
         self.draw(self.currentNotes)
         self.onframe()
