@@ -20,7 +20,7 @@ class Goals(object):
 
         #Update with chordrec and trip the completed if necessary
         def update(self, data, chordstr):
-            if data != None:
+            if data != None and len(data) == len(self.qualifier):
                 tripped = False
                 valMatch = 0
                 valCount = 0
