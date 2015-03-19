@@ -2,12 +2,12 @@
 #key
 #Play any note with an accidental.
 #key with accidental
-#Play a major third.
-#major third
-#Play a minor third.
-#minor third
-#Play a perfect fifth.
-#perfect fifth
+Play a major third.
+major third
+Play a minor third.
+minor third
+Play a perfect fifth.
+perfect fifth
 #Play an octave.
 #octave
 Play any major triad.
