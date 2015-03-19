@@ -22,7 +22,8 @@ class Goals(object):
         def update(data, chordstr):
             #data is a chordrec.data object
             #str is chordrec.chordstring object
-            try chordstr.index('with'):  #Check for conditionals
+            try:
+                chordstr.index('with')  #Check for conditionals
                 goalFirst = self.qualifier[:h.index('with')-1]
                 goalSecond = self.qualifier[h.index('with')+4+1:]
             except:
@@ -141,8 +142,8 @@ class Goals(object):
             self.scroll+=s*5
             self.clamp()
 
-            for goal in goalsurfs:
-                goal.update(chorddata, chordstring)
+        #for goal in goalsurfs:
+            #goal.update(chorddata, chordstring)
 
 
 

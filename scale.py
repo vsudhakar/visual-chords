@@ -46,7 +46,6 @@ class Scale(object):
                 print "missed keydown?"
             key=True
         
-        "called"
         self.drawboard()
         for x in self.currentNotes:
             self.drawnote(x)
@@ -56,7 +55,6 @@ class Scale(object):
 
 
     def drawboard(self):
-        print "drawn"
         self.surf.fill((255,255,255))
         self.surf.blit(self.cleff, (0,0))
         pygame.draw.line(self.surf, (0,0,0), (0, self.H/7), (self.W, self.H/7))

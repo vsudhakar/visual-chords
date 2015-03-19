@@ -14,7 +14,7 @@ from visual import visual
 from chordbox import Chordbox
 from sound import Sound
 from goals import Goals
-from ChordRec import ChordRec
+from ChordRec2 import ChordRec
 
 
 
@@ -56,7 +56,6 @@ while True:
                 scroll=-1
             elif event.key==274:
                 scroll=1
-
             try:
                 keydown.append(KEYS[event.key])
             except:
@@ -64,32 +63,23 @@ while True:
         elif event.type==KEYUP:
             if event.key==273 or event.key==274:
                 scroll=0
-
             try:
                 keyup.append(KEYS[event.key])
             except:
-                pass
+                print "missed keydown?"
+
     keyboard.update(keydown, keyup)
             ##    scale.update(keydown, keyup)
             ##    chordrec.update(keydown, keyup)
     goals.update(None, None, scroll)
-            # None (1) - chordrec.data
+            # None (1) - chordrec.chorddata  !!!  its chordrec.chorddata I know thats against spec SORRY :'(
             # None (2) - chordrec.chordstring
-
-    if len(keydown)>0:
-        print keydown[0]
-        visual.update(keydown, keyup, keydown[0])        # For now 'None' is passed, it should be chordrec.data
-        print "burst?"
-    else:
-        visual.update(keydown, keyup, None)
-
     scale.update(keydown, keyup)
     chordrec.update(keydown, keyup)
-    goals.update(None, scroll)
     visual.update(keydown, keyup, chordrec.chorddata)
-
     sound.update(keydown, keyup)
     chordbox.update(chordrec.chorddata, chordrec.chordstring)
+    print chordrec.chorddata
 
                 #Draw Surfaces
     screen.blit(keyboard.surf, (0,HEIGHT*.8))
