@@ -72,7 +72,7 @@ while True:
     keyboard.update(keydown, keyup)
             ##    scale.update(keydown, keyup)
             ##    chordrec.update(keydown, keyup)
-    goals.update(None, None, scroll)
+    goals.update(chordrec.chorddata, chordrec.chordstring, scroll)
             # None (1) - chordrec.chorddata  !!!  its chordrec.chorddata I know thats against spec SORRY :'(
             # None (2) - chordrec.chordstring
     scale.update(keydown, keyup)

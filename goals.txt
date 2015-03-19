@@ -1,21 +1,21 @@
-Play any note.
-key
-Play any note with an accidental.
-key with accidental
-Play a major third.
-major third
-Play a minor third.
-minor third
-Play a perfect fifth.
-perfect fifth
-Play an octave.
-octave
+#Play any note.
+#key
+#Play any note with an accidental.
+#key with accidental
+#Play a major third.
+#major third
+#Play a minor third.
+#minor third
+#Play a perfect fifth.
+#perfect fifth
+#Play an octave.
+#octave
 Play any major triad.
 major triad
 Play any minor triad.
 minor triad
-Play the following triad: F# minor
-F# minor triad
+Play the following triad: F# minor diminished
+F# minor diminished triad
 Play a major seventh.
 major seventh
 Play a minor seventh.
