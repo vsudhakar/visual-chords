@@ -17,7 +17,7 @@ class Scale(object):
             4:self.H*5/7,
             5:self.H*9/14,
             7:self.H*4/7,
-            9:self.H*9/14,
+            9:self.H*7/14,
             11:self.H*3/7,
             12:self.H*5/14,
             14:self.H*2/7,

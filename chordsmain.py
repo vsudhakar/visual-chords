@@ -14,7 +14,7 @@ from visual import visual
 from chordbox import Chordbox
 from sound import Sound
 from goals import Goals
-#from ChordRec import ChordRec
+from ChordRec import ChordRec
 
 
 
@@ -35,7 +35,7 @@ scale=Scale()
 goals=Goals()
 visual=visual()
 chordbox=Chordbox()
-#chordrec=ChordRec()
+chordrec=ChordRec()
 sound=Sound()
 
 
@@ -71,12 +71,12 @@ while True:
                 pass
     keyboard.update(keydown, keyup)
     scale.update(keydown, keyup)
-    #chordrec.update(keydown, keyup)
+    chordrec.update(keydown, keyup)
     goals.update(None, scroll)
-    visual.update(keydown, keyup, None)
+    visual.update(keydown, keyup, chordrec.chorddata)
 
     sound.update(keydown, keyup)
-    chordbox.update(None, "test")
+    chordbox.update(chordrec.chorddata, chordrec.chordstring)
 
                 #Draw Surfaces
     screen.blit(keyboard.surf, (0,HEIGHT*.8))

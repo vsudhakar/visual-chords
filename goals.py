@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from locals import *
-
+import goalFileInput
 
 class Goals(object):
     class GoalSurf(object):

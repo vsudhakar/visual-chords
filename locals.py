@@ -41,6 +41,11 @@ COLORS={
     11:(255, 0, 127)
 }
 
+
+def KEYOF(n):
+    return ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"][n%12]
+    
+
 def COLOR(n, mod=0):
     if mod==0:
         return COLORS[n%12]
